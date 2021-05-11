@@ -49,6 +49,17 @@ namespace Trustwave.Api.Services
                 List<string> combinations = FindCombinations();
                 List<string> subdomains = new List<string>();
 
+                foreach (string combination in combinations)
+                {
+                    string subdomain = $"{combination}.{domainName}";
+                    bool exists = PingDomain(subdomain);
+
+                    if (exists)
+                    {
+                        subdomains.Add(subdomain);
+                    }
+                }
+
                 return await Task.Run(() => new EnumerateResponse()
                 {
                     Subdomains = subdomains,
@@ -71,10 +82,26 @@ namespace Trustwave.Api.Services
         /// <summary>
         /// Find all combinations.
         /// </summary>
+        /// <param name="size">Size of the combination</param>
         /// <returns>Return a list of all possible combinations.</returns>
-        private static List<string> FindCombinations()
+        private static List<string> FindCombinations(int size = 2)
         {
-            return new List<string>();
+            List<string> result = new List<string>();
+
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            IEnumerable<string> items = alphabet.Select(x => x.ToString());
+
+            for (int i = 0; i < size - 1; i++)
+            {
+                items = items.SelectMany(x => alphabet, (x, y) => x + y);
+            }
+
+            foreach (string item in items)
+            {
+                result.Add(item);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -84,9 +111,17 @@ namespace Trustwave.Api.Services
         /// <returns>Return true if it exists, otherwise false.</returns>
         private static bool PingDomain(string domainName)
         {
+            // TODO:
+            // I don't believe pinging a domain name will tell you anything relevant in a reliable way.
+            // A domain name can be registered but not connected to a server.
+            // A server can be fully operational but be configured not to respond to ping requests.
+
             try
             {
-                return true;
+                Ping ping = new Ping();
+                PingReply result = ping.Send(domainName);
+
+                return result.Status == IPStatus.Success;
             }
             catch
             {
@@ -116,6 +151,17 @@ namespace Trustwave.Api.Services
 
                 List<Result> results = new List<Result>();
 
+                foreach (string subdomain in subdomains)
+                {
+                    List<string> ipAddresses = FindIpAddressBySubdomain(subdomain);
+
+                    results.Add(new Result
+                    {
+                        Subdomain = subdomain,
+                        IpAddresses = ipAddresses
+                    });
+                }
+
                 return await Task.Run(() => new IpAddressesResponse()
                 {
                     Results = results,
@@ -142,7 +188,16 @@ namespace Trustwave.Api.Services
         /// <returns>Return a list of IP addresses for the subdomain.</returns>
         private static List<string> FindIpAddressBySubdomain(string subdomain)
         {
-            return new List<string>();
+            List<string> result = new List<string>();
+
+            IPAddress[] ipAddresses = Dns.GetHostAddresses(subdomain);
+
+            foreach (IPAddress ipAddress in ipAddresses)
+            {
+                result.Add(ipAddress.ToString());
+            }
+
+            return result;
         }
     }
 }
