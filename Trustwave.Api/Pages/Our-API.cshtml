@@ -1,0 +1,20 @@
+﻿@page
+@model OurApiModel
+@{
+    ViewData["Title"] = "Our API";
+}
+
+<div id="our-api" class="row">
+    <h2>@ViewData["Title"]</h2>
+    <details open="">
+        <summary>
+            <strong>Subdomain API</strong> | <a href="~/swagger/index.html" target="_blank"><img src="https://static1.smartbear.co/swagger/media/assets/swagger_fav.png" width="20" height="20" alt="ICO" />Swagger</a>
+        </summary>
+        <br />
+        <p class="mb-0">Enumerate | List all possible subdomains for a specific domain name.</p>
+        <p class="mb-0">$ curl -X GET -H "Content-Type: application/json" -k https://localhost:44359/enumerate/(domain_name)</p>
+        <br />
+        <p class="mb-0">Find IP Addresses | Find all IP address for specific subdomains.</p>
+        <p class="mb-0">$ curl -X POST -H "Content-Type: application/json" -d '{ "subdomains": "List<string>" }' -k https://localhost:44359/findipaddresses/</p>
+    </details>
+</div>

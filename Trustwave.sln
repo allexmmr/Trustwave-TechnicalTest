@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trustwave.Api", "Trustwave.Api\Trustwave.Api.csproj", "{B46CC95F-DE9D-4B92-A23E-6444B9BD5359}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trustwave.Common", "Trustwave.Common\Trustwave.Common.csproj", "{AFF539F7-F2DE-4128-AA5B-D49BF090ED69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trustwave.Api.Test", "Trustwave.Api.Test\Trustwave.Api.Test.csproj", "{6EAA7CAB-A57D-4607-8745-F7764EBA9301}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Common Library", "1. Common Library", "{A11E7C9F-2BA4-4527-875F-B7097E07D3FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Api", "2. Api", "{5A7B8F1B-F645-425C-879D-F6AF9033FABD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Unit Testing", "3. Unit Testing", "{AF375B44-9360-4999-B4A8-C5176AB0E3F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B46CC95F-DE9D-4B92-A23E-6444B9BD5359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B46CC95F-DE9D-4B92-A23E-6444B9BD5359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B46CC95F-DE9D-4B92-A23E-6444B9BD5359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B46CC95F-DE9D-4B92-A23E-6444B9BD5359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF539F7-F2DE-4128-AA5B-D49BF090ED69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF539F7-F2DE-4128-AA5B-D49BF090ED69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF539F7-F2DE-4128-AA5B-D49BF090ED69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF539F7-F2DE-4128-AA5B-D49BF090ED69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EAA7CAB-A57D-4607-8745-F7764EBA9301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EAA7CAB-A57D-4607-8745-F7764EBA9301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EAA7CAB-A57D-4607-8745-F7764EBA9301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EAA7CAB-A57D-4607-8745-F7764EBA9301}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B46CC95F-DE9D-4B92-A23E-6444B9BD5359} = {5A7B8F1B-F645-425C-879D-F6AF9033FABD}
+		{AFF539F7-F2DE-4128-AA5B-D49BF090ED69} = {A11E7C9F-2BA4-4527-875F-B7097E07D3FE}
+		{6EAA7CAB-A57D-4607-8745-F7764EBA9301} = {AF375B44-9360-4999-B4A8-C5176AB0E3F4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0322EA04-250C-42A6-8A5E-14055B5CBA9E}
+	EndGlobalSection
+EndGlobal
