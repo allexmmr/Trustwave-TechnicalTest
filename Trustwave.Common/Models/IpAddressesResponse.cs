@@ -27,7 +27,7 @@ namespace Trustwave.Common.Models
         /// <summary>
         /// IP Addresses.
         /// </summary>
-        [JsonProperty("ipaddresses")]
+        [JsonProperty("ipAddresses")]
         public List<string> IpAddresses { get; set; }
     }
 }

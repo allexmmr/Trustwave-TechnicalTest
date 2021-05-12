@@ -20,7 +20,7 @@
             <summary>
             List all possible subdomains for a specific domain name.
             </summary>
-            <param name="domainName">Domain name.</param>
+            <param name="domain_name">Domain name.</param>
             <returns>Return all possible subdomains which contains only third-level domains with no more than 2 alphanumeric characters.</returns>
         </member>
         <member name="M:Trustwave.Api.Controllers.SubdomainController.FindIpAddressesAsync(System.Collections.Generic.List{System.String})">
@@ -74,11 +74,11 @@
             <param name="size">Size of the combination</param>
             <returns>Return a list of all possible combinations.</returns>
         </member>
-        <member name="M:Trustwave.Api.Services.SubdomainService.PingDomain(System.String)">
+        <member name="M:Trustwave.Api.Services.SubdomainService.PingAsync(System.String)">
             <summary>
             Pings the specified domain name.
             </summary>
-            <param name="domainName">Domain name.</param>
+            <param name="hostNameOrAddress">Host name or IP address.</param>
             <returns>Return true if it exists, otherwise false.</returns>
         </member>
         <member name="M:Trustwave.Api.Services.SubdomainService.FindIpAddressesAsync(System.Collections.Generic.List{System.String})">
@@ -88,12 +88,12 @@
             <param name="subdomains">Subdomains.</param>
             <returns>Return a list of IP addresses for each of the subdomains.</returns>
         </member>
-        <member name="M:Trustwave.Api.Services.SubdomainService.FindIpAddressBySubdomain(System.String)">
+        <member name="M:Trustwave.Api.Services.SubdomainService.FindIpAddressBySubdomainAsync(System.String)">
             <summary>
             Find all IP address by subdomain.
             </summary>
             <param name="subdomain">Subdomain.</param>
-            <returns>Return a list of IP addresses for the subdomain.</returns>
+            <returns>Return an array of IP addresses for the subdomain.</returns>
         </member>
     </members>
 </doc>

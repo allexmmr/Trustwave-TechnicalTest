@@ -4,9 +4,10 @@
     ViewData["Title"] = "Home page";
 }
 
+<br />
+
 <div class="jumbotron">
-    <h3 class="text-center">Welcome to my Technical Test for Trustwave</h3>
-    <h4>This is a coding project for Senior Full Stack Developer at Trustwave.</h4>
+    <h3>Welcome to my Technical Test for Senior Full Stack Developer at Trustwave.</h3>
     <h5>I am using ASP.NET Core MVC C#, Web API, interfaces, design principle of inversion of control (IoC), singleton design pattern, Bootstrap and more.</h5>
 </div>
 
@@ -14,7 +15,7 @@
     <form>
         <div class="row">
             <div class="form-group col-md-8">
-                <input name="domain" placeholder="domain e.g. yahoo.com" class="form-control" />
+                <input name="domain_name" placeholder="domain e.g. yahoo.com" class="form-control" />
             </div>
             <div class="form-group col-md-4">
                 <button id="list-subdomains" type="button" class="btn btn-primary">List Subdomains</button>
@@ -25,3 +26,52 @@
     <div id="result" class="alert" role="alert" style="display: none;">
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#list-subdomains").on("click", function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44359/subdomain/enumerate/" + $("input[name=domain_name]").val(),
+                contentType: "application/json",
+                success: function (response) {
+                    $("#result").removeClass("alert-danger").addClass("alert-success");
+                    $("#result").html("We found the following subdomains:<br />" + response.subdomains.toString().split(",").join("<br />"));
+                    $("#result").show();
+                },
+                error: function (response) {
+                    $("#result").removeClass("alert-success").addClass("alert-danger");
+                    $("#result").html(response.responseJSON.errorMessage);
+                    $("#result").show();
+                }
+            });
+        });
+
+        $("#find-ip-addresses").on("click", function (e) {
+            e.preventDefault();
+
+            var request = [
+                $("input[name=domain_name]").val()
+            ];
+
+            $.ajax({
+                type: "POST",
+                url: "https://localhost:44359/subdomain/findipaddresses",
+                data: JSON.stringify(request),
+                contentType: "application/json",
+                success: function (response) {
+                    $("#result").removeClass("alert-danger").addClass("alert-success");
+                    $("#result").html("We found the following IP addresses:<br />" + response.results[0].ipAddresses.toString().split(",").join("<br />"));
+                    $("#result").show();
+                },
+                error: function (response) {
+                    $("#result").removeClass("alert-success").addClass("alert-danger");
+                    $("#result").html(response.responseJSON.errorMessage);
+                    $("#result").show();
+                }
+            });
+        });
+    });
+</script>

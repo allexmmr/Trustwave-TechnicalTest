@@ -31,15 +31,15 @@ namespace Trustwave.Api.Controllers
         }
 
         // GET
-        // subdomain/enumerate/{domainName}
+        // subdomain/enumerate/{domain_name}
 
         /// <summary>
         /// List all possible subdomains for a specific domain name.
         /// </summary>
-        /// <param name="domainName">Domain name.</param>
+        /// <param name="domain_name">Domain name.</param>
         /// <returns>Return all possible subdomains which contains only third-level domains with no more than 2 alphanumeric characters.</returns>
-        [HttpGet("enumerate")]
-        public async Task<IActionResult> EnumerateAsync([FromBody] string domainName)
+        [HttpGet("enumerate/{domain_name}")]
+        public async Task<IActionResult> EnumerateAsync(string domain_name)
         {
             _logger?.LogDebug("'{0}' has been invoked.", nameof(EnumerateAsync));
 
@@ -50,7 +50,7 @@ namespace Trustwave.Api.Controllers
 
             try
             {
-                EnumerateResponse response = await _subdomainService.EnumerateAsync(domainName);
+                EnumerateResponse response = await _subdomainService.EnumerateAsync(domain_name);
 
                 return Ok(response);
             }
