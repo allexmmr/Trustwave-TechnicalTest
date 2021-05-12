@@ -46,17 +46,21 @@ namespace Trustwave.Api.Services
 
                 #endregion
 
-                List<string> combinations = FindCombinations();
                 List<string> subdomains = new List<string>();
 
-                foreach (string combination in combinations)
+                if (await PingAsync(domainName))
                 {
-                    string subdomain = $"{combination}.{domainName}";
-                    bool exists = PingDomain(subdomain);
+                    List<string> combinations = FindCombinations();
 
-                    if (exists)
+                    foreach (string combination in combinations)
                     {
-                        subdomains.Add(subdomain);
+                        string subdomain = $"{combination}.{domainName}";
+                        bool exists = await PingAsync(subdomain);
+
+                        if (exists)
+                        {
+                            subdomains.Add(subdomain);
+                        }
                     }
                 }
 
@@ -107,21 +111,16 @@ namespace Trustwave.Api.Services
         /// <summary>
         /// Pings the specified domain name.
         /// </summary>
-        /// <param name="domainName">Domain name.</param>
+        /// <param name="hostNameOrAddress">Host name or IP address.</param>
         /// <returns>Return true if it exists, otherwise false.</returns>
-        private static bool PingDomain(string domainName)
+        private static async Task<bool> PingAsync(string hostNameOrAddress)
         {
-            // TODO:
-            // I don't believe pinging a domain name will tell you anything relevant in a reliable way.
-            // A domain name can be registered but not connected to a server.
-            // A server can be fully operational but be configured not to respond to ping requests.
-
             try
             {
                 Ping ping = new Ping();
-                PingReply result = ping.Send(domainName);
+                PingReply pingReply = await ping.SendPingAsync(hostNameOrAddress);
 
-                return result.Status == IPStatus.Success;
+                return pingReply.Status == IPStatus.Success;
             }
             catch
             {
@@ -153,12 +152,12 @@ namespace Trustwave.Api.Services
 
                 foreach (string subdomain in subdomains)
                 {
-                    List<string> ipAddresses = FindIpAddressBySubdomain(subdomain);
+                    IPAddress[] ipAddresses = await FindIpAddressBySubdomainAsync(subdomain);
 
                     results.Add(new Result
                     {
                         Subdomain = subdomain,
-                        IpAddresses = ipAddresses
+                        IpAddresses = ipAddresses?.Select(ip => ip.ToString()).ToList()
                     });
                 }
 
@@ -185,19 +184,19 @@ namespace Trustwave.Api.Services
         /// Find all IP address by subdomain.
         /// </summary>
         /// <param name="subdomain">Subdomain.</param>
-        /// <returns>Return a list of IP addresses for the subdomain.</returns>
-        private static List<string> FindIpAddressBySubdomain(string subdomain)
+        /// <returns>Return an array of IP addresses for the subdomain.</returns>
+        private static async Task<IPAddress[]> FindIpAddressBySubdomainAsync(string subdomain)
         {
-            List<string> result = new List<string>();
-
-            IPAddress[] ipAddresses = Dns.GetHostAddresses(subdomain);
-
-            foreach (IPAddress ipAddress in ipAddresses)
+            try
             {
-                result.Add(ipAddress.ToString());
-            }
+                IPAddress[] ipAddresses = await Dns.GetHostAddressesAsync(subdomain);
 
-            return result;
+                return ipAddresses;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
