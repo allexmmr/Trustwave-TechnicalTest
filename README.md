@@ -56,19 +56,16 @@ The challenge was interesting and very pleasant to put my logic into practice.
 
 I chose to focus on the design and modeling of a Web API to implement the Subdomain API using ASP.NET Core due to the improved performance compared to ASP.NET stardard and other programming languages. Also, it is cross-platform and has great community support.
 
-The API has been partially developed due to the time constraint of 4 hours. However, I have suggested improvements that I'd do if I had more time.
+The API has been fully developed using Async methods, and I also have suggested improvements that I would do if I had more time. Please see TODO list.
 
-We can't find public subdomains, so I have implemented a logic to find all possible combinations up to 2 characters from a-z. See FindCombinations method.
+I have implemented a logic to find all possible combinations up to 2 characters from a-z. Please see FindCombinations method.
 
-Also, normally, it's not possible to ping public domains via programming language (security reasons!), so I have implemented something simple to check its availability. See PingDomain method.
+As suggested, I have used System.Net.Dns.GetHostAddresses(string hostNameorAddress) method to find all IP address by subdomain. Please see FindIpAddressBySubdomainAsync method.
 
-I couldn't use System.Net.Dns.GetHostAddresses(string hostNameorAddress) method due to security reasons. I got a message to request for the permission of type 'System.Net.DnsPermission'.
-
-Some case tests were coded and automated using xUnit.
+Some case tests were coded and automated for controllers and services using xUnit.
 
 // TODO
-* Improve PingDomain method
-* Improve FindIpAddressBySubdomain method
 * Improve the UI and UX
+* Use memory cache for each API method
 * Create more test scenarios
 * Deploy to a Docker container or an AWS EC2 instance
