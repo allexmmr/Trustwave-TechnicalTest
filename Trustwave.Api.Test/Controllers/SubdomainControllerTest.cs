@@ -26,7 +26,7 @@ namespace Trustwave.Api.Test.Controllers
             {
                 Subdomains = new List<string>
                 {
-                    "yahoo.com"
+                    "aa.yahoo.com"
                 },
                 Success = true
             };
@@ -41,11 +41,11 @@ namespace Trustwave.Api.Test.Controllers
             ObjectResult okObjectResult = result as ObjectResult;
 
             // Assert
-            IpAddressesResponse actual = (IpAddressesResponse)okObjectResult.Value;
+            EnumerateResponse actual = (EnumerateResponse)okObjectResult.Value;
 
             Assert.NotNull(okObjectResult);
             Assert.True(okObjectResult is OkObjectResult);
-            Assert.IsType<IpAddressesResponse>(okObjectResult.Value);
+            Assert.IsType<EnumerateResponse>(okObjectResult.Value);
             Assert.Equal(StatusCodes.Status200OK, okObjectResult.StatusCode);
             Assert.True(actual.Success);
         }
@@ -57,13 +57,13 @@ namespace Trustwave.Api.Test.Controllers
             Mock<ILogger<SubdomainController>> mockLogger = new Mock<ILogger<SubdomainController>>();
             Mock<ISubdomainService> mockSubdomainService = new Mock<ISubdomainService>();
 
-            List<string> subdomains = new List<string> { "yahoo.com" };
+            List<string> subdomains = new List<string> { "ar.yahoo.com" };
 
             IpAddressesResponse response = new IpAddressesResponse
             {
                 Results = new List<Result>
                 {
-                    new Result { IpAddresses = null, Subdomain = "yahoo.com" }
+                    new Result { Subdomain = "ar.yahoo.com", IpAddresses = new List<string> { "106.10.248.150" } }
                 },
                 Success = true
             };
