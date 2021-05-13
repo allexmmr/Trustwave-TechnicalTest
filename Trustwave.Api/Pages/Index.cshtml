@@ -23,7 +23,8 @@
             </div>
         </div>
     </form>
-    <div id="result" class="alert" role="alert" style="display: none;">
+    <div id="loader" class="loader"></div>
+    <div id="result" class="alert hidden" role="alert">
     </div>
 </div>
 
@@ -32,25 +33,41 @@
         $("#list-subdomains").on("click", function (e) {
             e.preventDefault();
 
+            $("#list-subdomains").prop("disabled", true);
+            $("#result").addClass("hidden");
+            $("#loader").show();
+
             $.ajax({
                 type: "GET",
                 url: "https://localhost:44359/subdomain/enumerate/" + $("input[name=domain_name]").val(),
                 contentType: "application/json",
                 success: function (response) {
-                    $("#result").removeClass("alert-danger").addClass("alert-success");
+                    $("#loader").hide();
+                    $("#result").removeClass("hidden").removeClass("alert-danger").addClass("alert-success");
                     $("#result").html("We found the following subdomains:<br />" + response.subdomains.toString().split(",").join("<br />"));
-                    $("#result").show();
                 },
                 error: function (response) {
-                    $("#result").removeClass("alert-success").addClass("alert-danger");
-                    $("#result").html(response.responseJSON.errorMessage);
-                    $("#result").show();
+                    $("#loader").hide();
+                    $("#result").removeClass("hidden").removeClass("alert-success").addClass("alert-danger");
+
+                    if (response.responseJSON != undefined) {
+                        $("#result").html(response.responseJSON.errorMessage);
+                    } else {
+                        $("#result").html("We are unable to process your request at this time.");
+                    }
+                },
+                complete: function () {
+                    $("#list-subdomains").prop("disabled", false);
                 }
             });
         });
 
         $("#find-ip-addresses").on("click", function (e) {
             e.preventDefault();
+
+            $("#find-ip-addresses").prop("disabled", true);
+            $("#result").addClass("hidden");
+            $("#loader").show();
 
             var request = [
                 $("input[name=domain_name]").val()
@@ -62,14 +79,27 @@
                 data: JSON.stringify(request),
                 contentType: "application/json",
                 success: function (response) {
-                    $("#result").removeClass("alert-danger").addClass("alert-success");
-                    $("#result").html("We found the following IP addresses:<br />" + response.results[0].ipAddresses.toString().split(",").join("<br />"));
-                    $("#result").show();
+                    $("#loader").hide();
+                    $("#result").removeClass("hidden").removeClass("alert-danger").addClass("alert-success");
+
+                    if (response.results != null && response.results[0].ipAddresses != null) {
+                        $("#result").html("We found the following IP addresses:<br />" + response.results[0].ipAddresses.toString().split(",").join("<br />"));
+                    } else {
+                        $("#result").html("We found no IP addresses.");
+                    }
                 },
                 error: function (response) {
-                    $("#result").removeClass("alert-success").addClass("alert-danger");
-                    $("#result").html(response.responseJSON.errorMessage);
-                    $("#result").show();
+                    $("#loader").hide();
+                    $("#result").removeClass("hidden").removeClass("alert-success").addClass("alert-danger");
+
+                    if (response.responseJSON != undefined) {
+                        $("#result").html(response.responseJSON.errorMessage);
+                    } else {
+                        $("#result").html("We are unable to process your request at this time.");
+                    }
+                },
+                complete: function () {
+                    $("#find-ip-addresses").prop("disabled", false);
                 }
             });
         });
