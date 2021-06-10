@@ -12,7 +12,7 @@ This is a technical test for Senior Full Stack Developer at Trustwave, which con
 ### How to get the solution
 1. Clone the repository on your machine OR download the repository and unzip it
 ### How to run the ASP.NET Core Web App
-1. Open the Trustwave-CodingExercise solution
+1. Open the Trustwave-TechnicalTest solution
 2. Rebuild the solution to install dependencies
 3. Set the project Trustwave.Api as StartUp Project
 4. Run the project (simply press F5)
