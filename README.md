@@ -12,7 +12,7 @@ This is a technical test for Senior Full Stack Developer at Trustwave, which con
 ### How to get the solution
 1. Clone the repository on your machine OR download the repository and unzip it
 ### How to run the ASP.NET Core Web App
-1. Open the Trustwave-CodingExercise solution
+1. Open the Trustwave-TechnicalTest solution
 2. Rebuild the solution to install dependencies
 3. Set the project Trustwave.Api as StartUp Project
 4. Run the project (simply press F5)
@@ -54,7 +54,7 @@ Render the result to the page.
 ### Assumptions
 The challenge was interesting and very pleasant to put my logic into practice.
 
-I chose to focus on the design and modeling of a Web API to implement the Subdomain API using ASP.NET Core due to the improved performance compared to ASP.NET stardard and other programming languages. Also, it is cross-platform and has great community support.
+I chose to focus on the design and modelling of a Web API to implement the Subdomain API using ASP.NET Core due to the improved performance compared to ASP.NET standard and other programming languages. Also, it is cross-platform and has great community support.
 
 The API has been fully developed using Async methods, and I also have suggested improvements that I would do if I had more time. Please see TODO list.
 
